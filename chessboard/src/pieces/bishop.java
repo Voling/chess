@@ -54,7 +54,7 @@ public class bishop extends piece {
 				if (emptyintermediates == Math.abs(targetx-originx)) {
 					return true;
 				} //meant for empty pieces. if destination is empty piece, 
-				if (emptyintermediates + 1 == Math.abs(targetx-originx)) {
+				if (emptyintermediates == Math.abs(targetx-originx)) {
 					if (!this.getcolor().equals(chessboard.getboard()[targetx][targety].getPiece().getcolor())) {
 						return true;
 					} //detect if destination is enemy piece

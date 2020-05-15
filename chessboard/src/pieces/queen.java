@@ -32,14 +32,14 @@ public class queen extends piece {
 				if (emptyintermediates == Math.abs(targetx-originx)) {
 					return true;
 				} //meant for empty pieces. if destination is empty piece, 
-				if (emptyintermediates + 1 == Math.abs(targetx-originx)) {
+				if (emptyintermediates == Math.abs(targetx-originx)) {
 					if (!this.getcolor().equals(chessboard.getboard()[targetx][targety].getPiece().getcolor())) {
 						return true;
 					} //detect if destination is enemy piece
 				}
 			}
 		}
-		//horizontal movement
+		//horizontal, vertical movement
 		if (Math.abs(targetx - originx) > 0 && Math.abs(targety-originy) == 0) { //finds moves in x directions
 
 			System.out.println("checktrue");
@@ -60,7 +60,7 @@ public class queen extends piece {
 			if (emptyintermediates == Math.abs(targetx-originx)) {
 				return true;
 			} 
-			if (emptyintermediates + 1 == Math.abs(targetx-originx)) {
+			if (emptyintermediates == Math.abs(targetx-originx)) {
 				if (!this.getcolor().equals(chessboard.getboard()[targetx][targety].getPiece().getcolor())) {
 					return true;
 				} //detect if destination is enemy piece
@@ -71,14 +71,14 @@ public class queen extends piece {
 			int emptyintermediates = 0;
 
 			for (int i = originy; i <= targety; i++) {
-				if (chessboard.getboard()[i][originy].getPiece().toString().equals("pieces.empty")) {
+				if (chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
 					emptyintermediates++;
 				}
 			}
 			for (int i = originy; i >= targety; i--) {
 				System.out.println(originy + " " + targety);
 				System.out.println(chessboard.getboard()[i][originy].getPiece());
-				if (chessboard.getboard()[i][originy].getPiece().toString().equals("pieces.empty")) {
+				if (chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
 					emptyintermediates++;
 				}
 			}
@@ -88,7 +88,7 @@ public class queen extends piece {
 				}
 				return true;
 			}
-			if (emptyintermediates + 1 == Math.abs(targety-originy)) {
+			if (emptyintermediates == Math.abs(targety-originy)) {
 				if (!this.getcolor().equals(chessboard.getboard()[targetx][targety].getPiece().getcolor())) {
 					return true;
 				} //detect if destination is enemy piece

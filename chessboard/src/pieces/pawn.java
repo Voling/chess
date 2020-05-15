@@ -11,9 +11,8 @@ public class pawn extends piece {
 		int originx = origin.getCoords()[0];
 		int originy = origin.getCoords()[1];
 		System.out.println("Coords are:\nTarget: " + targetx + " " + targety + " Origin: " + originx + " " + originy);
-		System.out.println(originy + " " + super.getcolor().equals("w"));
 		if (Math.abs(targety - originy) == 2) { //finds distance between beginning and end. for doublestep pawn
-			if (originy == 1 && super.getcolor().equals("w")) {
+			if (originy == 1 && getcolor().equals("w")) {
 				System.out.println("checktrue");
 				int emptyintermediates = 0;
 				for (int i = originy; i <= targety; i++) {
@@ -26,7 +25,7 @@ public class pawn extends piece {
 					return true;
 				}
 			}
-			if (originy == 6 && super.getcolor().equals("b")) {
+			if (originy == 6 && getcolor().equals("b")) {
 				System.out.println("checktrue");
 				int emptyintermediates = 0;
 				for (int i = originy; i >= targety; i--) {
@@ -40,10 +39,10 @@ public class pawn extends piece {
 				}
 			}
 		}
-		
+
 
 		if (Math.abs(targety - originy) == 1) { //finds distance between beginning and end. for singlestep pawn
-			if (super.getcolor().equals("w")) {
+			if (getcolor().equals("w")) {
 				System.out.println("checktrue");
 				int emptyintermediates = 0;
 				for (int i = originy; i <= targety; i++) {
@@ -56,7 +55,7 @@ public class pawn extends piece {
 					return true;
 				}
 			}
-			if (super.getcolor().equals("b")) {
+			if (getcolor().equals("b")) {
 				System.out.println("checktrue");
 				int emptyintermediates = 0;
 				for (int i = originy; i >= targety; i--) {
@@ -75,4 +74,5 @@ public class pawn extends piece {
 		}
 		return false;
 	}
+
 }

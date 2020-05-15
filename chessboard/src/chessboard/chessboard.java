@@ -48,7 +48,6 @@ public class chessboard {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
 				int abc[] = {i, j};
-				System.out.println(utilities.coordstostring(abc));
 				piece subject = getPieceOn(utilities.coordstostring(abc));
 				int coordsofsubject[] = {Integer.parseInt(utilities.literalcoordstoString(abc).substring(0, 1)), Integer.parseInt(utilities.literalcoordstoString(abc).substring(1))}; 
 				if (subject.toString().equals("pieces.queen")) { //test controls of queen
@@ -124,9 +123,9 @@ public class chessboard {
 					}
 				}
 				if (subject.toString().equals("pieces.pawn")) { //test controls of pawn
-					int coordsoftarget[] = {coordsofsubject[0]+1, coordsofsubject[1]};
+					int coordsoftarget[] = {coordsofsubject[0]+1, coordsofsubject[1]+1};
 					addcontrol(subject, coordsofsubject, coordsoftarget);
-					coordsoftarget[0] = coordsofsubject[0]-1;
+					coordsoftarget[0] = coordsofsubject[0]-2;
 					addcontrol(subject, coordsofsubject, coordsoftarget);
 				}
 				if (subject.toString().equals("pieces.knight")) { //test controls of knight
@@ -156,19 +155,23 @@ public class chessboard {
 		cleancontrols();
 	}
 	public void addcontrol(piece subject, int coordsofsubject[], int coordsoftarget[]) {
-		System.out.println(subject + " " + coordsofsubject[0] + " " + coordsofsubject[1] + " " + coordsoftarget[0] + " " + coordsoftarget[1]);
 		if (coordsoftarget[0] < 8 && coordsoftarget[0] >= 0 && coordsoftarget[1] < 8 && coordsoftarget[1] >= 0 && "w".equals(subject.getcolor())) {
-			if (subject.checklegal(getsquare(coordsofsubject), getsquare(coordsoftarget))) {
-				System.out.println(utilities.coordstostring(coordsoftarget));
+			if (subject.checklegal(getsquare(coordsofsubject), getsquare(coordsoftarget)) && !"pieces.pawn".equals(subject.toString())) {
 				whitecontrols.add(utilities.coordstostring(coordsoftarget));
+			} // if piece is not a pawn, simply add legal squares to control list
+			if ("pieces.pawn".equals(subject.toString()) && subject.capturelegal(getsquare(coordsofsubject), getsquare(coordsoftarget))) {
+				whitecontrols.add(utilities.coordstostring(coordsoftarget));
+			} // if subject is pawn and can capture adjacent diagonal squares, add to control list
+		}
+			if (coordsoftarget[0] < 8 && coordsoftarget[0] >= 0 && coordsoftarget[1] < 8 && coordsoftarget[1] >= 0 && "b".equals(subject.getcolor())) {
+				if (subject.checklegal(getsquare(coordsofsubject), getsquare(coordsoftarget)) && !"pieces.pawn".equals(subject.toString())) {
+					blackcontrols.add(utilities.coordstostring(coordsoftarget));
+				} // if piece is not a pawn, simply add legal squares to control list
+				if ("pieces.pawn".equals(subject.toString()) && subject.capturelegal(getsquare(coordsofsubject), getsquare(coordsoftarget))) {
+					blackcontrols.add(utilities.coordstostring(coordsoftarget));
+				}// if subject is pawn and can capture adjacent diagonal squares, add to control list
 			}
 		}
-		if (coordsoftarget[0] < 8 && coordsoftarget[0] >= 0 && coordsoftarget[1] < 8 && coordsoftarget[1] >= 0 && "b".equals(subject.getcolor())) {
-			if (subject.checklegal(getsquare(coordsofsubject), getsquare(coordsoftarget))) {
-				blackcontrols.add(utilities.coordstostring(coordsoftarget));
-			}
-		}
-	}
 	public void cleancontrols() {
 		whitecontrols = whitecontrols.stream().distinct().collect(Collectors.toList());
 		blackcontrols = blackcontrols.stream().distinct().collect(Collectors.toList());

@@ -14,7 +14,6 @@ public class rook extends piece {
 
 			System.out.println("checktrue");
 			int emptyintermediates = 0;
-
 			for (int i = originx; i <= targetx; i++) {
 				if (chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
 					emptyintermediates++;
@@ -30,7 +29,7 @@ public class rook extends piece {
 			if (emptyintermediates == Math.abs(targetx-originx)) {
 				return true;
 			} 
-			if (emptyintermediates + 1 == Math.abs(targetx-originx)) {
+			if (emptyintermediates == Math.abs(targetx-originx)) {
 				if (!this.getcolor().equals(chessboard.getboard()[targetx][targety].getPiece().getcolor())) {
 					return true;
 				} //detect if destination is enemy piece
@@ -41,14 +40,14 @@ public class rook extends piece {
 			int emptyintermediates = 0;
 
 			for (int i = originy; i <= targety; i++) {
-				if (chessboard.getboard()[i][originy].getPiece().toString().equals("pieces.empty")) {
+				if (chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
 					emptyintermediates++;
 				}
 			}
 			for (int i = originy; i >= targety; i--) {
 				System.out.println(originy + " " + targety);
 				System.out.println(chessboard.getboard()[i][originy].getPiece());
-				if (chessboard.getboard()[i][originy].getPiece().toString().equals("pieces.empty")) {
+				if (chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
 					emptyintermediates++;
 				}
 			}
@@ -58,7 +57,7 @@ public class rook extends piece {
 				}
 				return true;
 			}
-			if (emptyintermediates + 1 == Math.abs(targety-originy)) {
+			if (emptyintermediates == Math.abs(targety-originy)) {
 				if (!this.getcolor().equals(chessboard.getboard()[targetx][targety].getPiece().getcolor())) {
 					return true;
 				} //detect if destination is enemy piece

@@ -10,6 +10,10 @@ public class game {
 		xyz.getPieceOn("a1").move(utilities.coordstointarray("a1"), utilities.coordstointarray("a2"));
 		System.out.println(xyz.getPieceOn("a2"));
 		int[] abc = {1, 1};
+		xyz.detectcontrol();
+		for (String i: xyz.getwhitecontrols()) {
+			System.out.print(i + ", ");
+		}
 		//for (square[] i: xyz.getboard()) {
 			//for (square j: i) {
 				//System.out.print(j.getPiece());
