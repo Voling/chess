@@ -31,9 +31,14 @@ public class utilities {
 			array[1] = Integer.valueOf(abc.substring(1)) - 1;
 		}
 		return array;
-	}
-	public static String coordstostring(int[] coords) {
+	} //convert coordinates to int array
+	public static String literalcoordstoString(int[] coords) {
 		String abc = coords[0] + "" + coords[1];
 		return abc;
+	} //convert integer coordinates to String
+	public static String coordstostring(int[] abc) {
+		int minascii = 98;
+		String str =  (char)(abc[0] + 97)+ "" + (abc[1]+1);
+		return str;
 	}
 }
