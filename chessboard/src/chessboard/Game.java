@@ -2,15 +2,21 @@ package chessboard;
 import java.util.*;
 import pieces.*;
 
-public class game {
+public class Game {
 	static int movecounter = 1;
 	static int ply = 0;
+	static String check;
 	public static void main(String[] args) {
-		chessboard xyz = new chessboard();
-		xyz.getPieceOn("a1").move(utilities.coordstointarray("a1"), utilities.coordstointarray("a2"));
-		System.out.println(xyz.getPieceOn("a2"));
+		Chessboard xyz = new Chessboard();
 		int[] abc = {1, 1};
+		
+		System.out.println(xyz.getPieceOn("b2"));
+		xyz.getPieceOn("f1").move(Utilities.coordstointarray("f1"), Utilities.coordstointarray("e2"));
+		
 		xyz.detectcontrol();
+		System.out.println("f1 HAS " + xyz.getPieceOn("f1"));
+		System.out.println("e2 HAS " + xyz.getPieceOn("e2"));
+		System.out.print("White controls: ");
 		for (String i: xyz.getwhitecontrols()) {
 			System.out.print(i + ", ");
 		}

@@ -1,10 +1,12 @@
 package pieces;
+import java.util.*;
 import chessboard.*;
 
-public abstract class piece {
-	public abstract boolean checklegal(square origin, square target);
+public abstract class Piece {
+	public abstract boolean checklegal(Square origin, Square target);
+	public abstract void checkcontrol(int[] abc);
 	String color;
-	public piece(String color) {
+	public Piece(String color) {
 		this.color = color; 
 	}
 	public String getcolor() {
@@ -13,23 +15,22 @@ public abstract class piece {
 	//int[] coordinates = getCoords();
 	public void move(int[] startingpoint, int[] destination) {
 		System.out.println("move executed");
-		if (checklegal(chessboard.getsquare(startingpoint), chessboard.getsquare(destination))
-				&& !chessboard.getsquare(startingpoint).getPiece().getcolor().equals(chessboard.getsquare(destination).getPiece().getcolor())) {
-			System.out.println("AHHHHHH" + chessboard.getsquare(startingpoint).getPiece());
-			chessboard.setPiece(destination, chessboard.getsquare(startingpoint).getPiece());
-			chessboard.setPiece(startingpoint, new empty());
+		if (checklegal(Chessboard.getsquare(startingpoint), Chessboard.getsquare(destination))) {
+			System.out.println("AHHHHHH" + Chessboard.getsquare(startingpoint).getPiece());
+			Chessboard.setPiece(destination, Chessboard.getsquare(startingpoint).getPiece());
+			Chessboard.setPiece(startingpoint, new Empty());
 		}
 		else {
 			System.out.println("Illegal move");
 		}
-		chessboard.setboard(chessboard.getboard());
+		Chessboard.setboard(Chessboard.getboard());
 	}
-	public boolean capturelegal(square origin, square target) {
+	public boolean capturelegal(Square origin, Square target) {
 		int targetx = target.getCoords()[0];
 		int targety = target.getCoords()[1];
 		int originx = origin.getCoords()[0];
 		int originy = origin.getCoords()[1];
-		piece originpiece = origin.getPiece();
+		Piece originpiece = origin.getPiece();
 		if ("pieces.pawn".equals(originpiece.toString()) && Math.abs(targety - originy) == 2 || (Math.abs(targety-originy) == 1 && Math.abs(targetx-originx) == 0)) {
 			return false;
 		}

@@ -1,24 +1,24 @@
 package chessboard;
 import pieces.*;
 
-public class square {
-	piece occupying;
+public class Square {
+	Piece occupying;
 	int[] coordinates;
-	public square() {
-		occupying = new empty();
+	public Square() {
+		occupying = new Empty();
 	}
-	public square(int[] coordinates) {
-		occupying = new empty();
+	public Square(int[] coordinates) {
+		occupying = new Empty();
 		this.coordinates = coordinates;
 	}
-	public square(piece occupying) {
+	public Square(Piece occupying) {
 		this.occupying = occupying;
 	}
 	
-	public void setPiece(piece piece) {
+	public void setPiece(Piece piece) {
 		this.occupying = piece;
 	}
-	public piece getPiece() {
+	public Piece getPiece() {
 		return occupying;
 	}
 	public int[] getCoords() {

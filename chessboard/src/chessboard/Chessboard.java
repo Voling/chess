@@ -1,34 +1,33 @@
 package chessboard;
-import java.awt.Color;
 import java.util.*;
 import java.util.stream.*;
 
 import pieces.*;
-public class chessboard {
-	public static square[][] board = new square[8][8];
+public class Chessboard {
+	public static Square[][] board = new Square[8][8];
 	public static List<String> whitecontrols = new ArrayList<String>(64);
 	public static List<String> blackcontrols = new ArrayList<String>(64);
-	public chessboard() {
+	public Chessboard() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				int[] abc = {i, j};
-				board[i][j] = new square(abc);
+				board[i][j] = new Square(abc);
 			}
 		}
 		setboard(createstartingpos());
 	}
-	public square[][] createstartingpos() {
+	public Square[][] createstartingpos() {
 		//white pieces
-		board[0][0].setPiece(new rook("w"));
-		board[1][0].setPiece(new knight("w"));
-		board[2][0].setPiece(new bishop("w"));
-		board[3][0].setPiece(new queen("w"));
-		board[4][0].setPiece(new king("w"));
-		board[5][0].setPiece(new bishop("w"));
-		board[6][0].setPiece(new knight("w"));
-		board[7][0].setPiece(new rook("w"));
+		//board[0][0].setPiece(new rook("w"));
+		//board[1][0].setPiece(new knight("w"));
+		//board[2][0].setPiece(new bishop("w"));
+		//board[3][0].setPiece(new queen("w"));
+		//board[4][0].setPiece(new king("w"));
+		//board[5][0].setPiece(new bishop("w"));
+		//board[6][0].setPiece(new knight("w"));
+		//board[7][0].setPiece(new rook("w"));
 		//black pieces
-		board[0][7].setPiece(new rook("b"));
+		/*board[0][7].setPiece(new rook("b"));
 		board[1][7].setPiece(new knight("b"));
 		board[2][7].setPiece(new bishop("b"));
 		board[3][7].setPiece(new queen("b"));
@@ -36,21 +35,21 @@ public class chessboard {
 		board[5][7].setPiece(new bishop("b"));
 		board[6][7].setPiece(new knight("b"));
 		board[7][7].setPiece(new rook("b"));
+		*/
 		//both color pawns
-		for (int i = 0; i < board.length; i++) {
+		/*for (int i = 0; i < board.length; i++) {
 			board[i][1].setPiece(new pawn("w"));
 			board[i][6].setPiece(new pawn("b"));
 		}
-
+*/
 		return board;
 	}
 	public void detectcontrol() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board.length; j++) {
-				int abc[] = {i, j};
-				piece subject = getPieceOn(utilities.coordstostring(abc));
-				int coordsofsubject[] = {Integer.parseInt(utilities.literalcoordstoString(abc).substring(0, 1)), Integer.parseInt(utilities.literalcoordstoString(abc).substring(1))}; 
-				if (subject.toString().equals("pieces.queen")) { //test controls of queen
+				int coords[] = {i, j};
+				getPieceOn(Utilities.coordstostring(coords)).checkcontrol(coords);
+				/*if (subject.toString().equals("pieces.queen")) { //test controls of queen
 					//test horizontals and verticals
 					for (int x = i; x < 8; x++) { //test positive x direction
 						int coordsoftarget[] = {x, coordsofsubject[1]};
@@ -141,7 +140,7 @@ public class chessboard {
 					int kingmoves[][] = {{coordsofsubject[0] + 1, coordsofsubject[1]},
 							{coordsofsubject[0] + 1, coordsofsubject[1] - 1},
 							{coordsofsubject[0], coordsofsubject[1] - 1},
-							{coordsofsubject[0] -1, coordsofsubject[1] -1 },
+							{coordsofsubject[0] -1, coordsofsubject[1]},
 							{coordsofsubject[0] - 1, coordsofsubject[1] - 1},
 							{coordsofsubject[0] - 1, coordsofsubject[1] + 1},
 							{coordsofsubject[0], coordsofsubject[1] + 1},
@@ -150,26 +149,28 @@ public class chessboard {
 						addcontrol(subject, coordsofsubject, kingmove);
 					}
 				}
+				*/
 			}
 		}
 		cleancontrols();
 	}
-	public void addcontrol(piece subject, int coordsofsubject[], int coordsoftarget[]) {
+	public static void addcontrol(Piece subject, int coordsofsubject[], int coordsoftarget[]) {
 		if (coordsoftarget[0] < 8 && coordsoftarget[0] >= 0 && coordsoftarget[1] < 8 && coordsoftarget[1] >= 0 && "w".equals(subject.getcolor())) {
 			if (subject.checklegal(getsquare(coordsofsubject), getsquare(coordsoftarget)) && !"pieces.pawn".equals(subject.toString())) {
-				whitecontrols.add(utilities.coordstostring(coordsoftarget));
+				whitecontrols.add(Utilities.coordstostring(coordsoftarget));
 			} // if piece is not a pawn, simply add legal squares to control list
 			if ("pieces.pawn".equals(subject.toString()) && subject.capturelegal(getsquare(coordsofsubject), getsquare(coordsoftarget))) {
-				whitecontrols.add(utilities.coordstostring(coordsoftarget));
+				whitecontrols.add(Utilities.coordstostring(coordsoftarget));
 			} // if subject is pawn and can capture adjacent diagonal squares, add to control list
+			
 		}
 			if (coordsoftarget[0] < 8 && coordsoftarget[0] >= 0 && coordsoftarget[1] < 8 && coordsoftarget[1] >= 0 && "b".equals(subject.getcolor())) {
 				if (subject.checklegal(getsquare(coordsofsubject), getsquare(coordsoftarget)) && !"pieces.pawn".equals(subject.toString())) {
-					blackcontrols.add(utilities.coordstostring(coordsoftarget));
+					blackcontrols.add(Utilities.coordstostring(coordsoftarget));
 				} // if piece is not a pawn, simply add legal squares to control list
 				if ("pieces.pawn".equals(subject.toString()) && subject.capturelegal(getsquare(coordsofsubject), getsquare(coordsoftarget))) {
-					blackcontrols.add(utilities.coordstostring(coordsoftarget));
-				}// if subject is pawn and can capture adjacent diagonal squares, add to control list
+					blackcontrols.add(Utilities.coordstostring(coordsoftarget));
+				} // if subject is pawn and can capture adjacent diagonal squares, add to control list
 			}
 		}
 	public void cleancontrols() {
@@ -198,20 +199,20 @@ public class chessboard {
 	public List<String> getblackcontrols() {
 		return blackcontrols;
 	}
-	public piece getPieceOn(String query) {
-		List<String> abc = utilities.interpretmove(query);
+	public static Piece getPieceOn(String query) {
+		List<String> abc = Utilities.interpretmove(query);
 		return board[Integer.parseInt(abc.get(0))-1][Integer.parseInt(abc.get(1))-1].getPiece();
 	} //retrieve piece on coordinate
-	public static void setPiece(int[] coordinates, piece piece) {
+	public static void setPiece(int[] coordinates, Piece piece) {
 		board[coordinates[0]][coordinates[1]].setPiece(piece);
 	} //set piece on coordinate
-	public static square getsquare(int[] coords) {
+	public static Square getsquare(int[] coords) {
 		return board[coords[0]][coords[1]];
 	} //retrieve square on coordinates
-	public static square[][] getboard() {
+	public static Square[][] getboard() {
 		return board;
 	} //return board
-	public static void setboard(square[][] abc) {
+	public static void setboard(Square[][] abc) {
 		board = abc;
 	} //set board
 }

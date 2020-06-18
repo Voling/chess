@@ -1,11 +1,11 @@
 package pieces;
 import chessboard.*;
 
-public class knight extends piece {
-	public knight(String color) {
+public class Knight extends Piece {
+	public Knight(String color) {
 		super(color);
 	}
-	public boolean checklegal(square origin, square target) {
+	public boolean checklegal(Square origin, Square target) {
 		System.out.println("checklegal ran");
 		int targetx = target.getCoords()[0];
 		int targety = target.getCoords()[1];
@@ -22,5 +22,16 @@ public class knight extends piece {
 			}
 		}
 		return false;
+	}
+	public void checkcontrol(int[] coords) {
+		Piece subject = Chessboard.getPieceOn(Utilities.coordstostring(coords));
+		int coordsofsubject[] = {Integer.parseInt(Utilities.literalcoordstoString(coords).substring(0, 1)), Integer.parseInt(Utilities.literalcoordstoString(coords).substring(1))};
+		int knightmoves[][] = {{coordsofsubject[0] + 1, coordsofsubject[1] + 2}, {coordsofsubject[0] + 2, coordsofsubject[1] + 1}, 
+				{coordsofsubject[0] + 2, coordsofsubject[1] -1}, {coordsofsubject[0] + 1, coordsofsubject[1] - 2}, {coordsofsubject[0] - 1, coordsofsubject[1] - 2}, 
+				{coordsofsubject[0] - 2, coordsofsubject[1] - 1},
+				{coordsofsubject[0] - 2, coordsofsubject[1] + 1}, {coordsofsubject[0] - 1, coordsofsubject[1] + 2}};
+		for (int[] knightmove: knightmoves) {
+			Chessboard.addcontrol(subject, coordsofsubject, knightmove);
+		}
 	}
 }

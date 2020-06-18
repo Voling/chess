@@ -2,7 +2,7 @@ package chessboard;
 
 import java.util.*;
 
-public class utilities {
+public class Utilities {
 	public static List<String> interpretmove(String move) {
 		List<String> coordsinterpretation = new ArrayList<String>();
 		int minascii = 96;
@@ -27,7 +27,7 @@ public class utilities {
 	public static int[] coordstointarray(String abc) {
 		int[] array = new int[2];
 		if (abc.length() == 2) {
-			array[0] = Integer.valueOf(utilities.interpretmove(abc.substring(0, 1)).get(0)) - 1;
+			array[0] = Integer.valueOf(Utilities.interpretmove(abc.substring(0, 1)).get(0)) - 1;
 			array[1] = Integer.valueOf(abc.substring(1)) - 1;
 		}
 		return array;
@@ -38,7 +38,7 @@ public class utilities {
 	} //convert integer coordinates to String
 	public static String coordstostring(int[] abc) {
 		int minascii = 98;
-		String str =  (char)(abc[0] + 97)+ "" + (abc[1]+1);
+		String str = (char)(abc[0] + 97)+ "" + (abc[1]+1);
 		return str;
 	}
 }

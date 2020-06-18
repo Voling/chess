@@ -1,11 +1,11 @@
 package pieces;
 import chessboard.*;
 
-public class pawn extends piece {
-	public pawn(String color) {
+public class Pawn extends Piece {
+	public Pawn(String color) {
 		super(color);
 	}
-	public boolean checklegal(square origin, square target) {
+	public boolean checklegal(Square origin, Square target) {
 		int targetx = target.getCoords()[0];
 		int targety = target.getCoords()[1];
 		int originx = origin.getCoords()[0];
@@ -16,7 +16,7 @@ public class pawn extends piece {
 				System.out.println("checktrue");
 				int emptyintermediates = 0;
 				for (int i = originy; i <= targety; i++) {
-					if (chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
+					if (Chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
 						emptyintermediates++;
 					}
 				}
@@ -30,7 +30,7 @@ public class pawn extends piece {
 				int emptyintermediates = 0;
 				for (int i = originy; i >= targety; i--) {
 					i--;
-					if (chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
+					if (Chessboard.getboard()[originx][i].getPiece().toString().equals("pieces.empty")) {
 						emptyintermediates++;
 					}
 				}
@@ -46,7 +46,7 @@ public class pawn extends piece {
 				System.out.println("checktrue");
 				int emptyintermediates = 0;
 				for (int i = originy; i <= targety; i++) {
-					if (("pieces.empty".equals(chessboard.getboard()[originx][i].getPiece().toString()))) {
+					if (("pieces.empty".equals(Chessboard.getboard()[originx][i].getPiece().toString()))) {
 						emptyintermediates++;
 					}
 				}
@@ -60,7 +60,7 @@ public class pawn extends piece {
 				int emptyintermediates = 0;
 				for (int i = originy; i >= targety; i--) {
 					i--;
-					if ("pieces.empty".equals(chessboard.getboard()[originx][i].getPiece().toString())) {
+					if ("pieces.empty".equals(Chessboard.getboard()[originx][i].getPiece().toString())) {
 						emptyintermediates++;
 					}
 				}
@@ -74,5 +74,12 @@ public class pawn extends piece {
 		}
 		return false;
 	}
-
+	public void checkcontrol(int[] coords) {
+		Piece subject = Chessboard.getPieceOn(Utilities.coordstostring(coords));
+		int coordsofsubject[] = {Integer.parseInt(Utilities.literalcoordstoString(coords).substring(0, 1)), Integer.parseInt(Utilities.literalcoordstoString(coords).substring(1))};
+		int coordsoftarget[] = {coordsofsubject[0]+1, coordsofsubject[1]+1};
+		Chessboard.addcontrol(subject, coordsofsubject, coordsoftarget);
+		coordsoftarget[0] = coordsofsubject[0]-2;
+		Chessboard.addcontrol(subject, coordsofsubject, coordsoftarget);
+	}
 }

@@ -1,14 +1,17 @@
 package pieces;
 import chessboard.*;
 
-public class empty extends piece {
-	public empty() {
+public class Empty extends Piece {
+	public Empty() {
 		super(null);
 	}
-	public boolean checklegal(square origin, square target) {
+	public boolean checklegal(Square origin, Square target) {
 		return false;
 	}
 	public String getcolor() {
 		return color;
+	}
+	public void checkcontrol(int[] coords) {
+		//System.out.println("no present piece");
 	}
 }
