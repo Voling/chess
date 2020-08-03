@@ -8,10 +8,10 @@ public class Empty extends Piece {
 	public boolean checklegal(Square origin, Square target) {
 		return false;
 	}
-	public String getcolor() {
-		return color;
-	}
-	public void checkcontrol(int[] coords) {
+	public void checkcontrol(Square origin) {
 		//System.out.println("no present piece");
+	}
+	public boolean controlAllyLegal(Square origin, Square target) {
+		return false;
 	}
 }

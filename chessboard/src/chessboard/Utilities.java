@@ -41,4 +41,15 @@ public class Utilities {
 		String str = (char)(abc[0] + 97)+ "" + (abc[1]+1);
 		return str;
 	}
+	public static String coloropposite(String color) {
+		// @param	
+		// @return	get opposite color
+		if ("w".equalsIgnoreCase(color)) {
+			return "b";
+		}
+		if ("b".equalsIgnoreCase(color)) {
+			return "w";
+		}
+		return null;
+	}
 }

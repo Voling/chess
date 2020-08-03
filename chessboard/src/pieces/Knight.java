@@ -12,26 +12,42 @@ public class Knight extends Piece {
 		int originx = origin.getCoords()[0];
 		int originy = origin.getCoords()[1];
 		if ((Math.abs(targetx-originx) == 2) && Math.abs(targety-originy) == 1) {
-			if (!origin.getPiece().getcolor().equals(target.getPiece().getcolor())) {
+			if (!origin.getPiece().getColor().equals(target.getPiece().getColor())) {
 				return true;
 			}
 		}
 		if ((Math.abs(targetx-originx) == 1) && (Math.abs(targety-originy) == 2)) {
-			if (!origin.getPiece().getcolor().equals(target.getPiece().getcolor())) {
+			if (!origin.getPiece().getColor().equals(target.getPiece().getColor())) {
 				return true;
 			}
 		}
 		return false;
 	}
-	public void checkcontrol(int[] coords) {
-		Piece subject = Chessboard.getPieceOn(Utilities.coordstostring(coords));
-		int coordsofsubject[] = {Integer.parseInt(Utilities.literalcoordstoString(coords).substring(0, 1)), Integer.parseInt(Utilities.literalcoordstoString(coords).substring(1))};
+	public void checkcontrol(Square origin) {
+		Piece subject = origin.getPiece();
+		int coordsofsubject[] = origin.getCoords();
 		int knightmoves[][] = {{coordsofsubject[0] + 1, coordsofsubject[1] + 2}, {coordsofsubject[0] + 2, coordsofsubject[1] + 1}, 
 				{coordsofsubject[0] + 2, coordsofsubject[1] -1}, {coordsofsubject[0] + 1, coordsofsubject[1] - 2}, {coordsofsubject[0] - 1, coordsofsubject[1] - 2}, 
 				{coordsofsubject[0] - 2, coordsofsubject[1] - 1},
 				{coordsofsubject[0] - 2, coordsofsubject[1] + 1}, {coordsofsubject[0] - 1, coordsofsubject[1] + 2}};
 		for (int[] knightmove: knightmoves) {
-			Chessboard.addcontrol(subject, coordsofsubject, knightmove);
+			if (knightmove[0] < 8 && knightmove[0] > 0 && knightmove[1] < 8 && knightmove[1] > 0) {
+				Chessboard.addcontrol(subject, coordsofsubject, knightmove);
+			}
 		}
+	}
+	public boolean controlAllyLegal(Square origin, Square target) {
+		Piece subject = origin.getPiece();
+		int coordsofsubject[] = origin.getCoords();
+		int knightmoves[][] = {{coordsofsubject[0] + 1, coordsofsubject[1] + 2}, {coordsofsubject[0] + 2, coordsofsubject[1] + 1}, 
+				{coordsofsubject[0] + 2, coordsofsubject[1] -1}, {coordsofsubject[0] + 1, coordsofsubject[1] - 2}, {coordsofsubject[0] - 1, coordsofsubject[1] - 2}, 
+				{coordsofsubject[0] - 2, coordsofsubject[1] - 1},
+				{coordsofsubject[0] - 2, coordsofsubject[1] + 1}, {coordsofsubject[0] - 1, coordsofsubject[1] + 2}};
+		for (int[] knightmove: knightmoves) {
+			if (knightmove[0] < 8 && knightmove[0] >= 0 && knightmove[1] < 8 && knightmove[1] >= 0 && target.getCoords().equals(knightmove) && target.getPiece().getColor().equals(subject.getColor())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
